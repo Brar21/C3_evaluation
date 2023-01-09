@@ -69,14 +69,15 @@
     border-radius: 10px;
     display: flex;
     gap: 3rem;
+    width: 100%;
+    justify-content: space-evenly;
     padding: 1rem;
-    justify-content: center;
-    align-items: center;
+    margin: auto;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
 }
 .Experience p{
-    border: 1px solid;
+   
     background-color: rgb(146, 106, 106);
     padding: 1rem 1.4rem;
     border-radius: 50%;
@@ -85,6 +86,6 @@
     color: wheat
 }
 .Experience h6{
-    margin-top: -10px;
+    margin-top: 10px;
     color: rgb(173, 148, 148);
 }
