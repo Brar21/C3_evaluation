@@ -1,12 +1,24 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
-
+import {useRouter} from 'next/router'
+import Experience from './experience'
+import Projects from './projects'
+import TechStack from '../components/TechStack'
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({props})
+export default function Home({user})
 {
-    console.log(props)
+    console.log(user)
+    const router=useRouter()
+    const handleFollow=() =>
+    {
+        router.push(`${user.html_url}`)
+    }
+    const handleResume=() =>
+    {
+        router.push(`https://drive.google.com/file/d/16yCvFjENxUHmZ7T564TxagBEBtEt9Y4E/view`)
+    }
   return (
     <>
       <Head>
@@ -15,8 +27,18 @@ export default function Home({props})
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-              <h1>{props.name}</h1>
+          <main className={styles.main}>
+              <img src={user.avatar_url} alt="github" />
+              <h1>{user.name}</h1>
+              <h4>@{user.login}</h4>
+              <p>{user.bio.substr(0,100)}...</p>
+              <div>
+                  <button onClick={handleResume}>Resume</button>
+                  <button onClick={handleFollow}>Follow</button>
+              </div>
+              <TechStack/>
+              <Experience />
+              <Projects/>
       </main>
     </>
   )
@@ -27,6 +49,6 @@ export async function getStaticProps()
     let res=await fetch(`https://api.github.com/users/brar21`)
     let data=await res.json();
     return {
-       props:data
+       props:{user:data}
     }
 }
