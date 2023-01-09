@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from '../styles/Home.module.css'
 
 const List=[
     {
@@ -39,11 +40,22 @@ const TechStack = () => {
     return (
         <>
         
-        {
-            List.map((el) => (<div key={el.id}>
-                <ul>{el.title}</ul>
-            </div>))
-        }
+       <div className={styles.tech}>
+                
+                
+                <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Javascript</li>
+            <li>Python</li>
+            <li>Typescript</li>
+            <li>Express.js</li>
+            <li>React.js</li>
+            <li>MongoDB</li>
+            <li>Chakra-UI</li>
+            <li>Bootstrap</li></ul>
+                </div>
+      
         </>
   )
 }

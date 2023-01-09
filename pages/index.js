@@ -7,7 +7,7 @@ import Projects from './projects'
 import TechStack from '../components/TechStack'
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({user})
+export default function Home({user,Data})
 {
     console.log(user)
     const router=useRouter()
@@ -28,17 +28,25 @@ export default function Home({user})
         <link rel="icon" href="/favicon.ico" />
       </Head>
           <main className={styles.main}>
+              <div className={styles.mainPage}>     
+              <div className={styles.user}> 
               <img src={user.avatar_url} alt="github" />
               <h1>{user.name}</h1>
               <h4>@{user.login}</h4>
               <p>{user.bio.substr(0,100)}...</p>
-              <div>
+              <div className={styles.button}>
                   <button onClick={handleResume}>Resume</button>
                   <button onClick={handleFollow}>Follow</button>
               </div>
-              <TechStack/>
-              <Experience />
-              <Projects/>
+                  </div>
+                  <div className={styles.Techs}>
+                  <TechStack />
+                  </div>
+                  <div className={styles.experience}>
+                  <Experience />
+                      </div>
+           </div>
+              <Projects user={Data.items}/>
       </main>
     </>
   )
@@ -48,7 +56,12 @@ export async function getStaticProps()
 {
     let res=await fetch(`https://api.github.com/users/brar21`)
     let data=await res.json();
+    let resp=await fetch(`https://api.github.com/search/repositories?q=user:brar21+fork:true&sort=updated&per_page=10&type=Repositories`)
+    let Data=await resp.json();
     return {
-       props:{user:data}
+        props: {
+            user: data,
+            Data:Data
+        }
     }
 }
